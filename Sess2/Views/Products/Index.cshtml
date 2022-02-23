@@ -1,0 +1,106 @@
+﻿@model List<Sess2.Models.Data.Product>
+
+
+<input type="text"  id="pNameTextBox"/>
+<button type="button" id="searchButton"> Search</button>
+<div class="card" id="resultData">
+    <div class="card-title">
+        <span class="font-weight-bold">Product-</span>
+        <span id="resultTitle"></span>
+    </div>
+    <div class="card-text">
+        <span class="font-weight-bold">Costs-</span>
+        <span id="resultPrice"></span>
+    </div>
+   
+</div>
+
+
+@*showing data in table
+<h2>Products</h2>
+<hr />
+<div>
+    @if (TempData["Message"]!=null)
+    {
+        <p class="alert-info">@TempData["Message"]</p>
+    }
+
+    <table border="5" class="table table-hover table-responsive-md">
+        <tr class="thead dark">
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Update Product</th>
+            <th>Delete Product</th>
+        </tr>
+        @foreach (var product in Model)
+        {
+    <tr>
+        <td>@product.Productid</td>
+        <td>@product.Productname</td>
+
+        <td>@product.Unitprice</td>
+        <td>
+            <a asp-action="UpdateProduct"
+               asp-controller="Products"
+               asp-route-id="@product.Productid">Update</a>
+        </td>
+
+        <td>
+            <a asp-action="DeleteProduct"
+               asp-controller="Products"
+               asp-route-id="@product.Productid">Delete</a>
+        </td>
+    </tr>
+        }
+    </table>
+</div>*@
+
+
+<h4 class="alert-heading">Product list</h4>
+<ul class="list list-unstyled">
+    @foreach (var product in Model)
+    {
+        <li>
+            @Html.PartialAsync("_Product",product).Result
+        </li>
+    }
+</ul>
+
+@section Scripts
+{
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.js"></script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#resultData").toggleClass("invisible");
+        $("#searchButton").click(function () {
+            var pName = $("#pNameTextBox").val();
+            $.getJSON("/Products/GetProductsByName", "name=" + pName, function (data) {
+                $("#resultData").toggleClass("invisible");
+                $("#resultTitle").html(data[0].productName);
+                $("#resultTitle").html(data[0].unitPrice);
+            });
+        });
+    });
+</script>
+
+
+@*
+        <div>
+        <h4 class="alert-heading">product list </h4>
+        <ul class="list list-unstyled">
+            @foreach (var product in Model)
+            {
+                <li>
+                    @product.Productid :  @product.Productname : costs @product.Unitprice
+                </li>
+            }
+        </ul>
+    </div>
+*@
+

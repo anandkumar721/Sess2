@@ -1,0 +1,38 @@
+﻿@model List<Sess2.Models.Data.Customer>
+
+<h2>Customer</h2>
+<hr />
+
+<div>
+    <table border="5" class="table table-hover table-responsive-md">
+        <tr class="thead dark">
+            <th>Id</th>
+            <th>Contact Name</th>
+            <th>Company</th>
+            <th>Address</th>
+        </tr>
+        @foreach (var customer in Model)
+        {
+        <tr>
+            <td>@customer.Customerid</td>
+            <td>@customer.Contactname</td>
+            <td>@customer.Companyname</td>
+            <td>@customer.Address</td>
+        </tr>
+        }
+    </table>
+</div>
+
+@*
+<div>
+    <h4 class="alert-heading">product list </h4>
+    <ul class="list list-unstyled">
+        @foreach (var customer in Model)
+        {
+        <li>
+            Id- @customer.Customerid |Name-  @customer.Contactname  |Company- @customer.Companyname |Address-@customer.Address
+        </li>
+        }
+    </ul>
+</div>
+*@

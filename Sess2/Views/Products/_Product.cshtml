@@ -1,0 +1,23 @@
+﻿@model Sess2.Models.Data.Product;
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="badge">product -@Model.Productname</h3>
+    </div>
+    <input type="hidden"  id="productId" value="@Model.Productid"/>
+    <div class="card-body">
+        <p>
+            Price:@Model.Unitprice
+            <a class="btn btn-outline-info" asp-action="UpdateProduct"
+               asp-controller="Products"
+               asp-route-id="@Model.Productid">
+                Update
+            </a>&nbsp;
+            <a class="btn btn-outline-info" asp-action="DeleteProduct"
+               asp-controller="Products"
+               asp-route-id="@Model.Productid">
+                Delete 
+            </a>
+        </p>
+    </div>
+</div>
